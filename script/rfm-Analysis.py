@@ -55,11 +55,17 @@ rfm['R'] = pd.qcut(rfm['recency'], 4, labels=[4, 3, 2, 1])
 rfm['F'] = pd.qcut(rfm['frequency'].rank(method='first'), 4, labels=[1, 2, 3, 4])
 rfm['M'] = pd.qcut(rfm['monetary'], 4, labels=[1, 2, 3, 4])
 
-
+# combine to singal score
 rfm['RFM_Score'] = rfm['R'].astype(str) + rfm['F'].astype(str) + rfm['M'].astype(str)
 print(rfm.head())
 
-                                     
 
-
+plt.figure(figsize=(10, 6))
+sns.countplot(data=rfm, x='RFM_Score', order=rfm['RFM_Score'].value_counts().index)
+plt.title('Customer segments by RFM score')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('C:/Users/hp/Desktop/customer-segmentation-rfm-analysis/graphs/customer_segments.png')
+plt.show()
+plt.close()
 
